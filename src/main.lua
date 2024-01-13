@@ -54,34 +54,43 @@ end
 
 local function RotatePhone(toEmail)
     isPhoneRotated = toEmail
+    local stepPos = 3   -- This used to be 1
+    local stepRot = 5   -- This used to be 2
+
     if toEmail then 
         CreateThread(function()
-            while GetMobilePhonePosition().x > 56 do 
+            while GetMobilePhonePosition().x > 56.0 do 
                 DisableAllControlActions(2)
-                SetMobilePhonePosition(GetMobilePhonePosition().x - 1, -28.0, -60.0)
-                Wait(2)
+                SetMobilePhonePosition(GetMobilePhonePosition().x - stepPos, -28.0, -60.0)
+                Wait(1)  -- Reduced from 2
             end
-            while GetMobilePhoneRotation().z < 89 do 
+            while GetMobilePhoneRotation().z < 89.0 do 
                 DisableAllControlActions(2)
-                SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z + 2)
+                SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z + stepRot)
                 Wait(1)
             end
+            SetMobilePhonePosition(56.0, -28.0, -60.0)
+            SetMobilePhoneRotation(-90.0, 0.0, 89.0)
         end)
     else 
         CreateThread(function()
-            while GetMobilePhonePosition().x < 61.5 do 
+            while GetMobilePhonePosition().x < 60.0 and GetMobilePhonePosition().x > 50.0 do 
                 DisableAllControlActions(2)
-                SetMobilePhonePosition(GetMobilePhonePosition().x + 1, -28.0, -60.0)
-                Wait(2)
+                SetMobilePhonePosition(GetMobilePhonePosition().x + stepPos, -28.0, -60.0)
+                Wait(1)  -- Reduced from 2
             end
-            while GetMobilePhoneRotation().z > 1 do 
+            while GetMobilePhoneRotation().z > 1.0 do 
                 DisableAllControlActions(2)
-                SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z - 2)
+                SetMobilePhoneRotation(-90.0, 0.0, GetMobilePhoneRotation().z - stepRot)
                 Wait(1)
             end
+            SetMobilePhonePosition(61.5, -28.0, -60.0)
+            SetMobilePhoneRotation(-90.0, 0.0, 0.0)
         end)
     end
 end
+
+
 
 local function MovePhone(up)
     if up then 
