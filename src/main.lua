@@ -228,7 +228,7 @@ local function OpenCamera()
 end
 
 local function OpenInternet()
-    InfoMsg(notAvailable)
+    TriggerEvent("SC:OpenInternet")
 end
 
 local function SetAppsHome()
